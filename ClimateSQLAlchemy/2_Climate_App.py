@@ -44,14 +44,18 @@ def home():
 @app.route("/api/v1.0/precipitation")
 def precipitation():
     """- Query hawaii.sqlite database
-        - Convert query results to a dictionary {date (key) : prcp (value)}
-        - Return the JSON representation of your dictionary"""
+        - Convert query results to dictionary {date(key) : prcp(value)}
+        - Return the JSON representation of dictionary"""
 
+    ## Prompt to terminal
     print("Server received request for 'precipitation' page...")
 
+    ## Open session, store query results & close terminal
     session = Session(engine)
     results = session.query(Measurement.date, Measurement.prcp).all()
-    
+    session.close()
+
+    ## Convert query results to dictionary {date(key) : prcp(value)}
     prcp_response = []
     for date, prcp in results:
         prcp_dict = {}
@@ -59,7 +63,28 @@ def precipitation():
         prcp_dict["prcp"] = prcp
         prcp_response.append(prcp_dict)
 
+    ## Return JSON representation of dictionary
     return jsonify(prcp_response)
+
+
+## Stations
+@app.route("/api/v1.0/stations")
+def stations():
+    """- Return a JSON list of stations from the dataset"""
+
+    ## Prompt to terminal
+    print("Server received request for 'stations' page...")
+
+    ## Open session, store query results & close terminal
+    session = Session(engine)
+    results = session.query(Station.name).all()
+    session.close()
+
+    ## Convert query results to list
+    stations_response = list(np.ravel(results))
+    
+    ## Return JSON representation of list
+    return jsonify(stations_response)
 
 
 ## RUN FLASK APP

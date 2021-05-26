@@ -40,6 +40,28 @@ def home():
         f"/api/v1.0/<start>/<end><br/>"
     )
 
+## Precipitation
+@app.route("/api/v1.0/precipitation")
+def precipitation():
+    """- Query hawaii.sqlite database
+        - Convert query results to a dictionary {date (key) : prcp (value)}
+        - Return the JSON representation of your dictionary"""
+
+    print("Server received request for 'precipitation' page...")
+
+    session = Session(engine)
+    results = session.query(Measurement.date, Measurement.prcp).all()
+    
+    prcp_response = []
+    for date, prcp in results:
+        prcp_dict = {}
+        prcp_dict["date"] = date
+        prcp_dict["prcp"] = prcp
+        prcp_response.append(prcp_dict)
+
+    return jsonify(prcp_response)
+
+
 ## RUN FLASK APP
 if __name__ == "__main__":
     app.run(debug=True)

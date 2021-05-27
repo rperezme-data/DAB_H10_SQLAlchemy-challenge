@@ -39,11 +39,11 @@ def home():
         f"/api/v1.0/precipitation<br/>"
         f"/api/v1.0/stations<br/>"
         f"/api/v1.0/tobs<br/>"
-        f"/api/v1.0/<start><br/>"
-        f"/api/v1.0/<start>/<end><br/>"
+        f"/api/v1.0/2010-01-01<br/>"
+        f"/api/v1.0/2010-01-01/2017-08-18<br/>"
     )
 
-## Precipitation
+## Precipitation route
 @app.route("/api/v1.0/precipitation")
 def precipitation():
     """- Query hawaii.sqlite database
@@ -70,7 +70,7 @@ def precipitation():
     return jsonify(prcp_response)
 
 
-## Stations
+## Stations route
 @app.route("/api/v1.0/stations")
 def stations():
     """- Return a JSON list of stations from the dataset"""
@@ -90,7 +90,7 @@ def stations():
     return jsonify(stations_response)
 
 
-## TOBS
+## TOBS route
 @app.route("/api/v1.0/tobs")
 def tobs():
     """- Query dates and TOBS of the most active station for the last year of data
@@ -132,6 +132,77 @@ def tobs():
     return jsonify(tobs_response)
 
 
+## Start route
+@app.route("/api/v1.0/<start_date>")
+def start(start_date):
+    """- Return JSON list of the min, avg & max temp for a given start date
+        - Range: All dates greater than and equal to the start date"""
+    
+    ## Prompt to terminal
+    print("Server received request for 'start' page...")
+
+    ## Open session, store query results & close terminal
+    session = Session(engine)
+
+    most_active = session.query(Measurement.station).\
+        group_by(Measurement.station).\
+        order_by(func.count(Measurement.station).desc()).first()
+    most_active = most_active[0]
+
+    slct = [Measurement.station,
+          func.min(Measurement.tobs),
+          func.avg(Measurement.tobs),
+          func.max(Measurement.tobs)]
+
+    results = session.query(*slct).\
+        filter(Measurement.date >= start_date).\
+        filter(Measurement.station == most_active).\
+        order_by(Measurement.date).all()
+
+    session.close()
+
+    ## Convert query results to list
+    start_response = list(np.ravel(results))
+       
+    ## Return JSON representation of list
+    return jsonify(start_response)
+
+
+## Start/End route
+@app.route("/api/v1.0/<start_date>/<end_date>")
+def start_end(start_date, end_date):
+    """- Return JSON list of the min, avg & max temp for a given start/end range
+        - Range: Dates between the start and end date inclusive"""
+    
+    ## Prompt to terminal
+    print("Server received request for 'start/end' page...")
+
+    ## Open session, store query results & close terminal
+    session = Session(engine)
+
+    most_active = session.query(Measurement.station).\
+        group_by(Measurement.station).\
+        order_by(func.count(Measurement.station).desc()).first()
+    most_active = most_active[0]
+
+    slct = [Measurement.station,
+          func.min(Measurement.tobs),
+          func.avg(Measurement.tobs),
+          func.max(Measurement.tobs)]
+
+    results = session.query(*slct).\
+        filter(Measurement.date >= start_date).\
+        filter(Measurement.date <= end_date).\
+        filter(Measurement.station == most_active).\
+        order_by(Measurement.date).all()
+
+    session.close()
+
+    ## Convert query results to list
+    start_end_response = list(np.ravel(results))
+       
+    ## Return JSON representation of list
+    return jsonify(start_end_response)
 
 
 ## RUN FLASK APP

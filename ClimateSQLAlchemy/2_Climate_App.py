@@ -1,6 +1,9 @@
 ## DEPENDENCIES
 ## Numpy
 import numpy as np
+## Datetime & Relative Delta
+import datetime as dt
+from dateutil.relativedelta import relativedelta
 ## Python SQL toolkit and Object Relational Mapper
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
@@ -31,7 +34,7 @@ app = Flask(__name__)
 def home():
     """Homepage"""
     return (
-        f"Welcome to the Climate App!<br/>"
+        f"Welcome to the Climate App!<br/><br/>"
         f"Available Routes:<br/>"
         f"/api/v1.0/precipitation<br/>"
         f"/api/v1.0/stations<br/>"
@@ -77,7 +80,7 @@ def stations():
 
     ## Open session, store query results & close terminal
     session = Session(engine)
-    results = session.query(Station.name).all()
+    results = session.query(Station.station).all()
     session.close()
 
     ## Convert query results to list
@@ -85,6 +88,50 @@ def stations():
     
     ## Return JSON representation of list
     return jsonify(stations_response)
+
+
+## TOBS
+@app.route("/api/v1.0/tobs")
+def tobs():
+    """- Query dates and TOBS of the most active station for the last year of data
+        - Return JSON list of temperature observations (TOBS) for the previous year"""
+    
+    ## Prompt to terminal
+    print("Server received request for 'tobs' page...")
+
+    ## Open session, store query results & close terminal
+    session = Session(engine)
+
+    last_date = session.query(Measurement.date).order_by(Measurement.date.desc()).first()
+    last_date = dt.datetime.strptime(last_date[0], "%Y-%m-%d").date()
+    minus_one_year = last_date - relativedelta(years=1)
+
+    most_active = session.query(Measurement.station).\
+        group_by(Measurement.station).\
+        order_by(func.count(Measurement.station).desc()).first()
+    most_active = most_active[0]
+
+    slct = [Measurement.date, Measurement.tobs]
+
+    results = session.query(*slct).\
+        filter(Measurement.date >= func.strftime(minus_one_year)).\
+        filter(Measurement.station == most_active).\
+        order_by(Measurement.date).all()
+
+    session.close()
+
+    ## Convert query results to dictionary
+    tobs_response = []
+    for date, tobs in results:
+        tobs_dict = {}
+        tobs_dict["date"] = date
+        tobs_dict["tobs"] = tobs
+        tobs_response.append(tobs_dict)
+    
+    ## Return JSON representation of dictionary
+    return jsonify(tobs_response)
+
+
 
 
 ## RUN FLASK APP

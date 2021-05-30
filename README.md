@@ -60,4 +60,4 @@ Design Flask API to share data analysis results delivering a JSON response throu
 
 ### Notes:
 
-+ Jupyter Notebooks `1_Climate_Analysis.ipynb` , `3_Temperature_Analysis_1.ipynb` and `4_Temperature_Analysis_2.ipynb` are not correctly displayed in the GitHub interface. It is strongly suggested to download related files in order to run them natively.
++ Jupyter Notebooks `1_Climate_Analysis.ipynb` , `3_Temperature_Analysis_1.ipynb` and `4_Temperature_Analysis_2.ipynb` are not correctly displayed in GitHub interface. It is strongly suggested to download related files in order to run them natively.

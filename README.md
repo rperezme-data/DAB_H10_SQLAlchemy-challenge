@@ -42,4 +42,4 @@ ABC
 
 | Trip Avg Temp | Daily Temperature Normals (min-avg-max) |
 | --- | --- |
-| ![Temperature_Avg](ClimateSQLAlchemy/Images/Trip_Avg_Temp.png) | !![Daily_Normals](ClimateSQLAlchemy/Images/Daily_Normals.png) |
+| ![Temperature_Avg](ClimateSQLAlchemy/Images/Trip_Avg_Temp.png) | ![Daily_Normals](ClimateSQLAlchemy/Images/Daily_Normals.png) |

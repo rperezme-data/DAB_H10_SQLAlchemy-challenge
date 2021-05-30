@@ -19,7 +19,7 @@ This script takes advantage of Python & SQLAlchemy ORM (Object Relational Mapper
 + **Precipitation Analysis**
     - Retrieve last 12 months of precipitation data.
     - Sort values by `date`.
-    - Plot results 
+    - Plot results.
 
 ![Precipitation](ClimateSQLAlchemy/Images/Precipitation.png)
 
@@ -31,7 +31,7 @@ This script takes advantage of Python & SQLAlchemy ORM (Object Relational Mapper
     - For most active station:
         - Calculate lowest, average and highest temperature.
         - Retrieve last 12 months of temperature observation data (TOBS).
-        - Plot results as a histogram with `bins=12`.
+        - Plot results as histogram.
 
 ![Histogram](ClimateSQLAlchemy/Images/Histogram.png)
 

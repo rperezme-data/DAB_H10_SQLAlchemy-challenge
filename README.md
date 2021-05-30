@@ -1,21 +1,21 @@
 # SQLAlchemy-challenge
-### Data App: Query database, Analyse data & Share results through API
+## Data App: Query database, Analyse data & Share results through API
 
 
-#### Description
+### Description
 The scope of this project is to query sample weather data stored in a database, perform a basic climate analysis and make results available delivering a JSON response through a Web API (Application Programming Interface).
 
-#### Script Summary
+### Script Summary
 This script takes advantage of Python & SQLAlchemy ORM (Object Relational Mapper) to query data from a SQLite database. The analysis was performed in Jupyter Notebook using Pandas and Matplotlib for data visualization. Flask framework was used to build the web API.
 
-#### Workflow
+### Workflow
 
-##### 1. Database Query
+#### 1. Database Query
 + Use SQLAlchemy `create_engine` to connect to SQLite database.
 + Use SQLAlchemy `automap_base()` to reflect DB tables into classes and save reference for `Station` and `Measurement` classes.
 + Link Python to DB by creating an SQLAlchemy session.
 
-##### 2. Data Analysis
+#### 2. Data Analysis
 + **Precipitation Analysis**
     - Retrieve last 12 months of precipitation data.
     - Sort values by `date`.
@@ -35,7 +35,7 @@ This script takes advantage of Python & SQLAlchemy ORM (Object Relational Mapper
 ![Histogram](ClimateSQLAlchemy/Images/Histogram.png)
 
 
-##### 3. Web App
+#### 3. Web App
 
 Design Flask API to share data analysis results delivering a JSON response through a Web Application.
 + **Static routes:**
@@ -51,13 +51,13 @@ Design Flask API to share data analysis results delivering a JSON response throu
 | ![API_Static](ClimateSQLAlchemy/Images/API_Static.png) | ![API_Dynamic](ClimateSQLAlchemy/Images/API_Dynamic.png) |
 
 
-##### 4. Additional Analysis
+#### 4. Additional Analysis
 
 | Trip Avg Temp | Daily Temperature Normals (min-avg-max) |
 | --- | --- |
 | ![Temperature_Avg](ClimateSQLAlchemy/Images/Trip_Avg_Temp.png) | ![Daily_Normals](ClimateSQLAlchemy/Images/Daily_Normals.png) |
 
 
-#### Note:
+### Notes:
 
 + Jupyter Notebooks `1_Climate_Analysis.ipynb` , `3_Temperature_Analysis_1.ipynb` and `4_Temperature_Analysis_2.ipynb` are not correctly displayed in the GitHub interface. It is strongly suggested to download related files in order to run them natively.

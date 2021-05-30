@@ -144,19 +144,12 @@ def start(start_date):
     ## Open session, store query results & close terminal
     session = Session(engine)
 
-    most_active = session.query(Measurement.station).\
-        group_by(Measurement.station).\
-        order_by(func.count(Measurement.station).desc()).first()
-    most_active = most_active[0]
-
-    slct = [Measurement.station,
-          func.min(Measurement.tobs),
+    slct = [func.min(Measurement.tobs),
           func.avg(Measurement.tobs),
           func.max(Measurement.tobs)]
 
     results = session.query(*slct).\
         filter(Measurement.date >= start_date).\
-        filter(Measurement.station == most_active).\
         order_by(Measurement.date).all()
 
     session.close()
@@ -180,20 +173,13 @@ def start_end(start_date, end_date):
     ## Open session, store query results & close terminal
     session = Session(engine)
 
-    most_active = session.query(Measurement.station).\
-        group_by(Measurement.station).\
-        order_by(func.count(Measurement.station).desc()).first()
-    most_active = most_active[0]
-
-    slct = [Measurement.station,
-          func.min(Measurement.tobs),
+    slct = [func.min(Measurement.tobs),
           func.avg(Measurement.tobs),
           func.max(Measurement.tobs)]
 
     results = session.query(*slct).\
         filter(Measurement.date >= start_date).\
         filter(Measurement.date <= end_date).\
-        filter(Measurement.station == most_active).\
         order_by(Measurement.date).all()
 
     session.close()

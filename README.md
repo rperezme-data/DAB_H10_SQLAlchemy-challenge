@@ -10,7 +10,7 @@ This script takes advantage of Python & SQLAlchemy ORM (Object Relational Mapper
 
 #### Workflow
 
-##### 1. Query database
+##### 1. Database Query
 + Use SQLAlchemy `create_engine` to connect to SQLite database.
 + Use SQLAlchemy `automap_base()` to reflect DB tables into classes and save reference for `Station` and `Measurement` classes.
 + Link Python to DB by creating an SQLAlchemy session.
@@ -23,7 +23,6 @@ This script takes advantage of Python & SQLAlchemy ORM (Object Relational Mapper
 
 ![Precipitation](ClimateSQLAlchemy/Images/Precipitation.png)
 
-<br/>
 
 + **Precipitation Analysis**
     - Compute total number of weather stations in dataset.
@@ -36,21 +35,30 @@ This script takes advantage of Python & SQLAlchemy ORM (Object Relational Mapper
 ![Histogram](ClimateSQLAlchemy/Images/Histogram.png)
 
 
-##### FLASK
+##### 3. Web App
+
+Design Flask API to share data analysis results delivering a JSON response through a Web Application.
++ **Static routes:**
+    - /api/v1.0/precipitation
+    - /api/v1.0/stations
+    - /api/v1.0/tobs
+
+![API_Static](ClimateSQLAlchemy/Images/API_Static.png)
+
++ **Dynamic routes:**
+    - api/v1.0/<start>
+    - /api/v1.0/<start>/<end>
+
+![API_Dynamic](ClimateSQLAlchemy/Images/API_Dynamic.png)
 
 
-
-
-##### t-test
-
-
-
-
-
-
-ABC
-
+##### 4. Additional Analysis
 
 | Trip Avg Temp | Daily Temperature Normals (min-avg-max) |
 | --- | --- |
 | ![Temperature_Avg](ClimateSQLAlchemy/Images/Trip_Avg_Temp.png) | ![Daily_Normals](ClimateSQLAlchemy/Images/Daily_Normals.png) |
+
+
+#### Note:
+
++ Jupyter Notebooks `1_Climate_Analysis.ipynb` , `3_Temperature_Analysis_1.ipynb` and `4_Temperature_Analysis_2.ipynb` are not correctly displayed in the GitHub interface. It is strongly suggested to download related files in order to run them natively.

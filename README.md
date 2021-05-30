@@ -17,15 +17,23 @@ This script takes advantage of Python & SQLAlchemy ORM (Object Relational Mapper
 
 ##### 2. Data Analysis
 + **Precipitation Analysis**
-    - Find most recent date in dataset.
-    - From last date retrieve the 12 preceding months of precipitation data.
+    - Retrieve last 12 months of precipitation data.
     - Sort values by `date`.
     - Plot results 
 
-| Precipitation values (last 12 months) |
-| --- |
-| ![Precipitation](ClimateSQLAlchemy/Images/Precipitation.png) |
+![Precipitation](ClimateSQLAlchemy/Images/Precipitation.png)
 
+<br/>
+
++ **Precipitation Analysis**
+    - Compute total number of weather stations in dataset.
+    - List stations and observation counts (descending order).
+    - For most active station:
+        - Calculate lowest, average and highest temperature.
+        - Retrieve last 12 months of temperature observation data (TOBS).
+        - Plot results as a histogram with `bins=12`.
+
+![Histogram](ClimateSQLAlchemy/Images/Histogram.png)
 
 
 ##### FLASK
@@ -36,12 +44,7 @@ This script takes advantage of Python & SQLAlchemy ORM (Object Relational Mapper
 ##### t-test
 
 
-ABC
 
-
-| Temperature Observation Data (TOBS) Histogram |
-| --- |
-| ![Histogram](ClimateSQLAlchemy/Images/Histogram.png) |
 
 
 

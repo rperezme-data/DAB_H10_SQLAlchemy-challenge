@@ -10,11 +10,19 @@ This script takes advantage of Python & SQLAlchemy ORM (Object Relational Mapper
 
 #### Workflow
 
+##### 1. Query database
++ Use SQLAlchemy `create_engine` to connect to SQLite database.
++ Use SQLAlchemy `automap_base()` to reflect DB tables into classes and save reference for `Station` and `Measurement` classes.
++ Link Python to DB by creating an SQLAlchemy session.
 
+##### 2. Data Analysis
++ **Precipitation Analysis**
+    - Find most recent date in dataset.
+    - From last date retrieve the 12 preceding months of precipitation data.
+    - Sort values by `date`.
+    - Plot results 
 
-ABC
-
-| Precipitation Analysis |
+| Precipitation values (last 12 months) |
 | --- |
 | ![Precipitation](ClimateSQLAlchemy/Images/Precipitation.png) |
 

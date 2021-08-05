@@ -1,4 +1,4 @@
-## Data App: Query database, Analyse data & Share results through API
+# Data App: Query database, Analyse data & Share results through API
 
 ### Description
 The scope of this project is to query sample weather data stored in a database, perform a basic climate analysis and make results available delivering a JSON response through a Web API (Application Programming Interface).

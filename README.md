@@ -41,10 +41,10 @@ Design Flask API to share data analysis results delivering a JSON response throu
     - /api/v1.0/stations
     - /api/v1.0/tobs
 + **Dynamic routes:**
-    - api/v1.0/<start>
-    - /api/v1.0/<start>/<end>
+    - api/v1.0/`<start>`
+    - /api/v1.0/`<start>`/`<end>`
 
-| Static route: `/precipitation` | Dynamic route: `/<start>/<end>` |
+| Static route: /`precipitation` | Dynamic route: /`<start>`/`<end>` |
 | --- | --- |
 | ![API_Static](ClimateSQLAlchemy/Images/API_Static.png) | ![API_Dynamic](ClimateSQLAlchemy/Images/API_Dynamic.png) |
 
